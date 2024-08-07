@@ -7,20 +7,26 @@ class complejo:
 		self.r = rI
 		self.j = jI
 	def __add__(self, C):
+		# (a,b) + (c,d) = (a+c,b+d)
         	return complejo(self.r + C.r, self.j + C.j)
 	def __sub__(self, C):
+		# (a,b) - (c,d) = (a-c,b-d)
 		return complejo(self.r - C.r, self.j - C.j)
 	def __mul__(self, C):
+		# (a,b) * (c,d) = (a*c-b*d,a*d+b*c)
 		if isinstance(C, float):
 			return complejo(self.r*C, self.j*C)
 		elif isinstance(C, complejo):
 			return complejo(self.r*C.r - self.j*C.j, self.r*C.j + self.j*C.r)
+	def __rmul__(self, C):
+		return complejo(C*self.r, C*self.j)
 	def __neg__(self):
+		# -(a,b) = (-a,-b)
 		return complejo((-1)*self.r, (-1)*self.j)
 	def __str__(self):
 		return "{:.2f}+{:.2f}j".format(self.r, self.j)
 	def __repl__(self):
-		return self
+		return "{}".format(self)
 
 def main():
 	""" Funcion principal del programa """
@@ -42,5 +48,6 @@ def main():
 			sys.exit(1)
 	sys.exit(0)
 
+# Punto de entrada al script.
 if __name__ == "__main__":
 	main()
